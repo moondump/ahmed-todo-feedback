@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+
+        body {
+            background: url(http://www.ie-wallpapers.com/data/out/242/36845960-wallpaper-modern.jpg);
+            background-size:cover
+
+        }
+
+        h1 {
+            font-weight: bold;
+            color: #fff;
+            font-size: 50px;
+        }
+        form {
+            display: inline-block;
+        }
+        #outerDiv{
+
+            padding: 30px;
+            text-align: center;
+        }
+
+        #innerDiv{
+            margin: auto;
+            width: 200px;
+            height: 100px;
+        }
+
+        #innerDiv li {
+            margin: 0;
+            padding: 4px 0px 0px 4px;
+            text-align: left;
+        }
+
+        #innerDiv label {
+            padding-left: 4px;
+        }
+
+        ul {
+            padding: 0;
+            margin: 0;
+        }
+
+        ul li {
+            position: relative;
+            padding: 12px 8px 12px 40px;
+            background: #ffffff;
+            list-style-type: none;
+            font-size: 18px;
+
+        }
+
+        #submit {
+
+            position: absolute;
+            padding: 10px 16px;
+        }
+
+        button {
+            float: right
+        }
+
+        input {
+            margin: 0;
+            border: none;
+            border-radius: 0;
+            padding: 10px;
+            float: left;
+            font-size: 16px;
+            margin-right: 8px;
+        }
+
+    </style>
+
+</head>
+
+<h1 align="center"> To-Do List </h1>
+
+<body>
+
+<div id="outerDiv">
+    <form onsubmit="return addItem('list', this.inputItem)">
+        <input type="text" id="inputItem" onfocus="this.value=''" onselect="this.value=''" placeholder="Enter a Task">
+        <input id="submit" type="submit">
+    </form>
+</div>
+
+<div id="innerDiv">
+    <ul id="list"></ul>
+</div>
+
+<script>
+
+    // creates the inputItem then focuses it
+    var inputItem = document.getElementById("inputItem");
+    inputItem.focus();
+
+    // adds inputs to the list
+    function addItem(list, input) {
+        var inputItem = this.inputItem;
+        var list = document.getElementById(list);
+        var listItem = document.createElement("li");
+
+        // sets up the delete button
+        var deleteButton = document.createElement("button");
+        deleteButton.innerText = "X";
+        deleteButton.addEventListener("click", function() {
+            this.parentElement.style.display = 'none';
+        });
+
+        // sets up the check box
+        var checkBox = document.createElement("input");
+        checkBox.id = "check";
+        checkBox.type = 'checkbox';
+        checkBox.addEventListener('change', function() {
+            labelText.style.textDecoration = checkBox.checked ? 'line-through' : 'none';
+        });
+
+        // sets up the label
+        var label = document.createElement("label");
+        var labelText = document.createElement("span");
+        labelText.innerText = input.value;
+
+        // moves checkBox and labelText into label
+        label.appendChild(checkBox);
+        label.appendChild(labelText);
+
+        // put the label and the delete button into the list item
+        listItem.appendChild(label);
+        listItem.appendChild(deleteButton);
+
+        // moves the listItem into list then
+        // focuses and selects input and returns false
+        list.appendChild(listItem);
+        inputItem.focus();
+        inputItem.select();
+        return false;
+    }
+
+</script>
+
+</body>
+</html>
